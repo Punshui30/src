@@ -1,0 +1,22 @@
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
+
+const api = axios.create({
+  baseURL: 'http://104.248.2.10:3000',
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+});
+
+axiosRetry(api, {
+  retries: 3,
+  retryDelay: (retryCount) => Math.min(1000 * Math.pow(2, retryCount), 10000),
+  retryCondition: (error) =>
+    axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+    (error.response?.status && error.response.status >= 500) ||
+    error.response?.status === 429
+});
+
+export default api;

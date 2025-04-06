@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%; /* Deep Space Navy */
+    --foreground: 210 40% 98%; /* Light Gray */
+
+    --muted: 35 68% 43%; /* Metallic Gold (modified) */
+    --muted-foreground: 35 68% 23%; /* Darker Gold */
+
+    --accent: 45 66% 42%; /* Hunter Green (converted to HSL) */
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --border: 45 66% 42%; /* Hunter Green border */
+    --input: 45 66% 42%; /* Hunter Green input */
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --primary: 186 100% 50%; /* Neon Aqua (kept from original) */
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 35 68% 43%; /* Metallic Gold */
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 16 100% 64%; /* Coral (preserved) */
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 35 68% 23%; /* Metallic Gold ring */
+    --radius: 0.75rem; /* Slightly larger radius */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  pre, code {
+    font-family: 'Roboto Mono', monospace;
+  }
+}
+
+/* OS-Specific Enhancements */
+.os-window {
+  @apply fixed pointer-events-auto;
+  @apply bg-card/60 border-2 border-secondary/30 rounded-xl overflow-hidden;
+  @apply backdrop-blur-md shadow-os-window;
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.os-window-header {
+  @apply flex items-center justify-between p-3 bg-secondary/20 border-b border-secondary/30;
+  @apply select-none cursor-move;
+}
+
+.os-button {
+  @apply transition-all duration-200 ease-out;
+  @apply hover:scale-105 active:scale-95;
+  @apply focus:ring-2 focus:ring-secondary/30 focus:outline-none;
+  @apply bg-secondary text-secondary-foreground;
+  @apply shadow-lg shadow-secondary/20;
+}
+
+.os-input {
+  @apply bg-background/50 border border-secondary/30;
+  @apply focus:border-primary/50 focus:ring-2 focus:ring-primary/20;
+  @apply transition-all duration-200 ease-out;
+  @apply font-mono text-sm;
+}
+
+/* Neon and Glow Effects */
+.neon-glow {
+  @apply animate-glow;
+  filter: drop-shadow(0 0 10px theme('colors.secondary.DEFAULT'));
+}
+
+.sidebar-icon {
+  @apply transition-all duration-300;
+  @apply hover:text-secondary hover:scale-110;
+  @apply hover:drop-shadow-[0_0_5px_rgba(212,175,55,0.5)];
+}
+
+/* Scrollbar Styling */
+.premium-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--secondary)/0.3) transparent;
+}
+
+.premium-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.premium-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.premium-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-secondary/30 rounded-full;
+  @apply hover:bg-secondary/50;
+  @apply transition-colors duration-200;
+}
+
+/* Animation Keyframes */
+@keyframes os-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-os-pulse {
+  animation: os-pulse 2s ease-in-out infinite;
+}
