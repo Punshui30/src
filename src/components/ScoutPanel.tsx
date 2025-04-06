@@ -103,7 +103,7 @@ export function ScoutPanel({
       <div className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-primary" />
-          <h2 className="font-semibold">DAN Scout</h2>
+          <h2 className="font-semibold">ARGOS Scout</h2>
           <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded">
             {pendingSuggestions.length} Suggestions
           </span>

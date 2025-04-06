@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 const api = axios.create({
-  baseURL: 'http://104.248.2.10:3000',
+  baseURL: 'https://argos-backend-elkxxhknhq-uc.a.run.app',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',

@@ -30,7 +30,7 @@ app.get('/health', (req, res) => {
 });
 
 // Load Vertex AI Key
-const keyFile = join(__dirname, 'dan-backend/dan-vertex-ai-key.json');
+const keyFile = join(__dirname, 'argos-backend/argos-vertex-ai-key.json');
 let key;
 try {
   key = JSON.parse(fs.readFileSync(keyFile, 'utf-8'));

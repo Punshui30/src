@@ -7,7 +7,9 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App />
+      <ReactFlowProvider>
+        <App />
+      </ReactFlowProvider>
     </ErrorBoundary>
   </React.StrictMode>
 );

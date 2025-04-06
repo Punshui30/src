@@ -81,7 +81,7 @@ export function LogoEditor({ isOpen, onClose, onSave }: LogoEditorProps) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'dan-logo.svg';
+    link.download = 'argos-logo.svg';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

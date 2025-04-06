@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -7,35 +7,35 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%; /* Deep Space Navy */
-    --foreground: 210 40% 98%; /* Light Gray */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
-    --muted: 35 68% 43%; /* Metallic Gold (modified) */
-    --muted-foreground: 35 68% 23%; /* Darker Gold */
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 45 66% 42%; /* Hunter Green (converted to HSL) */
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
 
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --border: 45 66% 42%; /* Hunter Green border */
-    --input: 45 66% 42%; /* Hunter Green input */
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
 
     --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
 
-    --primary: 186 100% 50%; /* Neon Aqua (kept from original) */
+    --primary: 186 100% 50%;
     --primary-foreground: 222 47% 11%;
 
-    --secondary: 35 68% 43%; /* Metallic Gold */
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
 
-    --destructive: 16 100% 64%; /* Coral (preserved) */
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --ring: 35 68% 23%; /* Metallic Gold ring */
-    --radius: 0.75rem; /* Slightly larger radius */
+    --ring: 224 71.4% 4.1%;
+    --radius: 0.5rem;
   }
 
   * {
@@ -44,7 +44,6 @@
 
   html {
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    scroll-behavior: smooth;
   }
 
   body {
@@ -54,54 +53,37 @@
   }
 
   pre, code {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Fira Code', monospace;
   }
 }
 
-/* OS-Specific Enhancements */
-.os-window {
-  @apply fixed pointer-events-auto;
-  @apply bg-card/60 border-2 border-secondary/30 rounded-xl overflow-hidden;
-  @apply backdrop-blur-md shadow-os-window;
-  @apply transition-all duration-300 ease-in-out;
-}
-
-.os-window-header {
-  @apply flex items-center justify-between p-3 bg-secondary/20 border-b border-secondary/30;
-  @apply select-none cursor-move;
-}
-
-.os-button {
+/* Premium UI Enhancements */
+.premium-button {
   @apply transition-all duration-200 ease-out;
-  @apply hover:scale-105 active:scale-95;
-  @apply focus:ring-2 focus:ring-secondary/30 focus:outline-none;
-  @apply bg-secondary text-secondary-foreground;
-  @apply shadow-lg shadow-secondary/20;
+  @apply hover:scale-[1.02] active:scale-[0.98];
+  @apply focus:ring-2 focus:ring-primary/20 focus:outline-none;
+  @apply bg-gradient-to-r from-primary/90 to-primary;
+  @apply text-primary-foreground font-medium;
+  @apply shadow-lg shadow-primary/20;
 }
 
-.os-input {
-  @apply bg-background/50 border border-secondary/30;
-  @apply focus:border-primary/50 focus:ring-2 focus:ring-primary/20;
+.premium-card {
+  @apply bg-card/70 backdrop-blur-md border border-border/50;
+  @apply shadow-lg shadow-black/10;
+  @apply transition-all duration-200 ease-out;
+  @apply hover:border-primary/20 hover:bg-card;
+}
+
+.premium-input {
+  @apply bg-background/50 border border-border/50;
+  @apply focus:border-primary/30 focus:ring-2 focus:ring-primary/20;
   @apply transition-all duration-200 ease-out;
   @apply font-mono text-sm;
 }
 
-/* Neon and Glow Effects */
-.neon-glow {
-  @apply animate-glow;
-  filter: drop-shadow(0 0 10px theme('colors.secondary.DEFAULT'));
-}
-
-.sidebar-icon {
-  @apply transition-all duration-300;
-  @apply hover:text-secondary hover:scale-110;
-  @apply hover:drop-shadow-[0_0_5px_rgba(212,175,55,0.5)];
-}
-
-/* Scrollbar Styling */
 .premium-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--secondary)/0.3) transparent;
+  scrollbar-color: hsl(var(--primary)/0.1) transparent;
 }
 
 .premium-scrollbar::-webkit-scrollbar {
@@ -114,17 +96,114 @@
 }
 
 .premium-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-secondary/30 rounded-full;
-  @apply hover:bg-secondary/50;
+  @apply bg-primary/10 rounded-full;
+  @apply hover:bg-primary/20;
   @apply transition-colors duration-200;
 }
 
-/* Animation Keyframes */
-@keyframes os-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+/* Neon Effects */
+.neon-text {
+  @apply text-primary;
+  text-shadow: 0 0 10px theme('colors.primary.DEFAULT'),
+               0 0 20px theme('colors.primary.DEFAULT'),
+               0 0 30px theme('colors.primary.DEFAULT');
 }
 
-.animate-os-pulse {
-  animation: os-pulse 2s ease-in-out infinite;
+.neon-border {
+  @apply border-primary;
+  box-shadow: 0 0 10px theme('colors.primary.DEFAULT'),
+              inset 0 0 10px theme('colors.primary.DEFAULT');
+}
+
+.neon-glow {
+  @apply animate-glow;
+  filter: drop-shadow(0 0 10px theme('colors.primary.DEFAULT'));
+}
+
+/* Window Layout Enhancements */
+.window-container {
+  @apply fixed inset-0 pointer-events-none;
+}
+
+.window {
+  @apply fixed pointer-events-auto;
+  @apply bg-card/40 border rounded-lg overflow-hidden;
+  @apply backdrop-blur-sm shadow-xl shadow-black/10;
+  @apply transition-all duration-200 ease-out;
+  @apply hover:shadow-primary/5;
+  @apply focus-within:border-primary/30;
+}
+
+.window-header {
+  @apply flex items-center justify-between p-2 bg-muted/30 border-b border-border/50;
+  @apply select-none;
+  @apply backdrop-blur-md;
+}
+
+.window-content {
+  @apply relative h-full;
+  @apply bg-card/30 backdrop-blur-sm;
+}
+
+.window-maximized {
+  @apply fixed inset-0 m-0 rounded-none;
+}
+
+.window-minimized {
+  @apply opacity-0 pointer-events-none;
+}
+
+.window-active {
+  @apply border-primary/50;
+  @apply shadow-lg shadow-primary/10;
+  @apply bg-card/50;
+  @apply backdrop-blur-md;
+}
+
+.window-button {
+  @apply h-6 w-6 rounded-md;
+  @apply flex items-center justify-center;
+  @apply transition-all duration-200 cursor-pointer;
+  @apply hover:bg-accent/50;
+  @apply active:scale-95;
+}
+
+/* ReactFlow Customization */
+.react-flow__node {
+  @apply premium-card;
+}
+
+.react-flow__handle {
+  @apply bg-primary border-primary/30 w-3 h-3 neon-border;
+}
+
+.react-flow__edge-path {
+  @apply stroke-primary/50;
+}
+
+.react-flow__controls {
+  @apply premium-card;
+}
+
+.react-flow__controls button {
+  @apply border-primary/30 bg-card/90 text-foreground hover:bg-accent transition-colors backdrop-blur-sm;
+}
+
+.react-flow__panel {
+  @apply bg-transparent;
+}
+
+.react-flow__background {
+  @apply bg-transparent;
+}
+
+/* Animation Keyframes */
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }

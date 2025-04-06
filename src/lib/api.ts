@@ -2,7 +2,8 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 const api = axios.create({
-  baseURL: '${baseURL}',
+  baseURL: 'https://argos-backend-elkxxhknhq-uc.a.run.app/health',
+ // Updated to use HTTPS
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
