@@ -21,7 +21,7 @@ interface CopilotPanelProps {
   onClose?: () => void;
 }
 
-export default function CopilotPanel({ className, messages, onSendMessage, onClose }: CopilotPanelProps) {
+export function CopilotPanel({ className, messages, onSendMessage, onClose }: CopilotPanelProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isWorkflowMode, setIsWorkflowMode] = useState(false);
@@ -282,3 +282,4 @@ export default function CopilotPanel({ className, messages, onSendMessage, onClo
     </div>
   );
 }
+

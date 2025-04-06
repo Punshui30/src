@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useWindowStore } from '../../lib/windowStore';
-import CopilotPanel from '../CopilotPanel';
-import AdaptersManager from '../AdaptersManager';
-import Flow3DWindow from '../Flow3DWindow';
-import { FlowEditorWindow } from '../FlowEditorWindow';
-import { GateInWindow } from '../GateInWindow'; // ✅ FIXED: use named import
+import { CopilotPanel } from '../CopilotPanel';           // ✅ named
+import { AdaptersManager } from '../AdaptersManager';     // ✅ named
+import { Flow3DWindow } from '../Flow3DWindow';           // ✅ named
+import { FlowEditorWindow } from '../FlowEditorWindow';   // ✅ named
+import { GateInWindow } from '../GateInWindow';           // ✅ named
 
 interface WindowManagerProps {
   isInitialized: boolean;
@@ -75,3 +75,5 @@ export function WindowManager({ isInitialized }: WindowManagerProps) {
     </>
   );
 }
+
+

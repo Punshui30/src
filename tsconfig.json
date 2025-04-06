@@ -1,0 +1,51 @@
+// tsconfig.json (Root Configuration)
+{
+  // Base compiler options - these might be inherited or overridden by referenced configs.
+  // Useful for editor integration and providing sensible defaults.
+  "compilerOptions": {
+    /* Base Options */
+    "esModuleInterop": true, // Enables compatibility with CommonJS modules - IMPORTANT for many libraries.
+    "allowSyntheticDefaultImports": true, // Allows default imports from modules without a default export. Often works with esModuleInterop.
+    "forceConsistentCasingInFileNames": true, // Helps prevent case-sensitivity issues across different OS.
+
+    /* Type Checking */
+    "strict": true, // Enable all strict type-checking options (recommended).
+    "skipLibCheck": true, // Skip type checking of declaration files (*.d.ts) - speeds up compilation.
+
+    /* Modules */
+    "module": "ESNext", // Use modern ES modules.
+    "moduleResolution": "bundler", // Use the strategy modern bundlers like Vite/esbuild expect.
+                                   // Use "node" as fallback if "bundler" causes issues.
+    "resolveJsonModule": true, // Allows importing .json files.
+    "isolatedModules": true, // Treat each file as a separate module (required by Vite/Babel).
+
+    /* Emit */
+    // "noEmit": true, // Usually 'true' in modern frontend setups where the bundler (Vite/Webpack) handles output.
+                     // Set to 'false' or remove if you need 'tsc' to emit JS files from the root for some reason.
+
+    /* Language and Environment */
+    "target": "ES2020", // Target modern JavaScript features. Adjust if needed for browser support.
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], // Include standard browser and ES2020 libraries.
+    "useDefineForClassFields": true // Use standard class fields definition (required by Vite).
+
+    // You might define baseUrl and paths here if shared across references,
+    // or define them within the specific tsconfig.*.json files.
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["src/*"]
+    // }
+  },
+
+  // Keep 'files' empty or remove it if 'include'/'exclude' are defined
+  // in the referenced tsconfig files (tsconfig.app.json, tsconfig.node.json).
+  // An empty 'files' array means only referenced projects are built when running 'tsc --build'.
+  "files": [],
+
+  // References to specific configurations for different parts of the project.
+  "references": [
+    // Config for the main application code (likely includes JSX settings).
+    { "path": "./tsconfig.app.json" },
+    // Config for Node.js specific code (e.g., Vite config, server-side scripts).
+    { "path": "./tsconfig.node.json" }
+  ]
+}

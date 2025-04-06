@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollArea } from './ui/scroll-area';
 import { Button } from './ui/button';
-import { X, Minus, Maximize2, Play, Code, ArrowRight, Database } from 'lucide-react';
+import { X, Minus, Maximize2, Play, Database } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useToast } from './ui/toast';
 import { useWindowStore } from '../lib/windowStore';
+
+interface Adapter {
+  id: string;
+  name: string;
+  description: string;
+  language: string;
+  targetLanguage: string;
+  codeSnippet: string;
+}
 
 interface AdaptersManagerProps {
   isOpen: boolean;
@@ -17,54 +26,7 @@ interface AdaptersManagerProps {
   position?: { x: number; y: number };
 }
 
-const mockAdapters = [
-  {
-    id: 'python',
-    name: 'Python Adapter',
-    description: 'Converts Python code to standardized API requests',
-    codeSnippet: `def get_user(user_id):\n  """Get user by ID"""\n  return db.users.find_one({"_id": user_id})`,
-    language: 'Python',
-    targetLanguage: 'JavaScript'
-  },
-  {
-    id: 'node',
-    name: 'Node.js Adapter',
-    description: 'Transpiles Node.js code to platform-agnostic format',
-    codeSnippet: `async function getUser(id) {\n  const user = await db.collection('users')\n    .findOne({ _id: id });\n  return user;\n}`,
-    language: 'JavaScript',
-    targetLanguage: 'Python'
-  },
-  {
-    id: 'graphql',
-    name: 'GraphQL Adapter',
-    description: 'Transforms GraphQL queries to REST API calls',
-    codeSnippet: `query GetUser($id: ID!) {\n  user(id: $id) {\n    id\n    name\n    email\n    roles\n  }\n}`,
-    language: 'GraphQL',
-    targetLanguage: 'REST'
-  },
-  {
-    id: 'rest',
-    name: 'REST API Adapter',
-    description: 'Converts REST endpoints to GraphQL operations',
-    codeSnippet: `// GET /api/users/:id\napp.get('/api/users/:id', (req, res) => {\n  const userId = req.params.id;\n  const user = getUserById(userId);\n  res.json(user);\n});`,
-    language: 'JavaScript (Express)',
-    targetLanguage: 'GraphQL'
-  }
-];
-
-// Simulate shared adapter state
-if (typeof window !== 'undefined' && !window.adapterFlow) {
-  window.adapterFlow = {
-    sourceCode: '',
-    transcodedCode: '',
-    dslOutput: '',
-    setSourceCode: (code: string) => { window.adapterFlow.sourceCode = code; },
-    setTranscodedCode: (code: string) => { window.adapterFlow.transcodedCode = code; },
-    setDslOutput: (dsl: string) => { window.adapterFlow.dslOutput = dsl; }
-  };
-}
-
-function AdaptersManager({
+export function AdaptersManager({
   isOpen,
   onClose,
   onMinimize,
@@ -73,10 +35,29 @@ function AdaptersManager({
   isFocused = false,
   position = { x: 100, y: 100 }
 }: AdaptersManagerProps) {
+  const [adapters, setAdapters] = useState<Adapter[]>([]);
   const { addToast } = useToast();
   const { addWindow } = useWindowStore();
 
-  const openPlayground = (adapter) => {
+  useEffect(() => {
+    fetch('/adapters')
+      .then(res => res.json())
+      .then(data => setAdapters(data))
+      .catch(() => addToast('Failed to fetch adapters', 'error'));
+  }, []);
+
+  if (typeof window !== 'undefined' && !window.adapterFlow) {
+    window.adapterFlow = {
+      sourceCode: '',
+      transcodedCode: '',
+      dslOutput: '',
+      setSourceCode: (code: string) => { window.adapterFlow.sourceCode = code; },
+      setTranscodedCode: (code: string) => { window.adapterFlow.transcodedCode = code; },
+      setDslOutput: (dsl: string) => { window.adapterFlow.dslOutput = dsl; }
+    };
+  }
+
+  const openPlayground = (adapter: Adapter) => {
     if (window.adapterFlow) {
       window.adapterFlow.setSourceCode(adapter.codeSnippet);
     }
@@ -120,12 +101,16 @@ function AdaptersManager({
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onMinimize}>
-            <Minus className="w-3 h-3" />
-          </Button>
-          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onMaximize}>
-            <Maximize2 className="w-3 h-3" />
-          </Button>
+          {onMinimize && (
+            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onMinimize}>
+              <Minus className="w-3 h-3" />
+            </Button>
+          )}
+          {onMaximize && (
+            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onMaximize}>
+              <Maximize2 className="w-3 h-3" />
+            </Button>
+          )}
           <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onClose}>
             <X className="w-3 h-3" />
           </Button>
@@ -137,7 +122,7 @@ function AdaptersManager({
           <div className="p-4 space-y-6">
             <h2 className="text-xl font-semibold mb-4">Available Adapters</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {mockAdapters.map((adapter) => (
+              {adapters.map((adapter) => (
                 <div
                   key={adapter.id}
                   className="bg-accent/30 border border-border rounded-lg p-4 hover:border-primary/50 transition-colors"
@@ -179,4 +164,3 @@ function AdaptersManager({
   );
 }
 
-export default AdaptersManager;

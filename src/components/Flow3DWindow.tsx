@@ -32,7 +32,7 @@ interface FlowEditorWindowProps {
   enableDslActions?: boolean;
 }
 
-function Flow3DWindow({
+export function Flow3DWindow({
   isOpen,
   isFocused = false,
   position = { x: 150, y: 150 },
@@ -99,7 +99,7 @@ function Flow3DWindow({
         <div className="flex items-center gap-1">
           {enableDslActions && (
             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleDslExport}>
-              ⇩
+              ⤓
             </Button>
           )}
           {onMinimize && (
@@ -109,7 +109,7 @@ function Flow3DWindow({
           )}
           {onMaximize && (
             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onMaximize}>
-              ◻
+              ☐
             </Button>
           )}
           <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onClose}>
@@ -131,6 +131,4 @@ function Flow3DWindow({
     </div>
   );
 }
-
-export default Flow3DWindow;
 
